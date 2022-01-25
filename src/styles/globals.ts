@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import colors from "./colors";
 
-export const Layout = styled.SafeAreaView`
+export const Layout = styled.View`
   flex: 1;
   background-color: ${colors.background};
   color: ${colors.white};
@@ -9,6 +9,6 @@ export const Layout = styled.SafeAreaView`
   flex-direction: column;
 `;
 
-export const Main = styled.View`
+export const Main = styled.ScrollView`
   flex: 1;
 `;
