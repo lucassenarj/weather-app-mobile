@@ -1,6 +1,6 @@
-enum ITemperature {
-  Celsius = "CELSIUS",
-  Fahrenheit = "FAHRENHEIT",
+const ITemperature = {
+  CELSIUS: "CELSIUS",
+  FAHRENHEIT: "FAHRENHEIT",
 };
 
 export default ITemperature;
