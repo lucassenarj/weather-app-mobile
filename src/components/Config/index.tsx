@@ -38,7 +38,7 @@ function Config() {
         <RNPickerSelect
           placeholder={{}}
           onValueChange={(value) => selectTemperature(value, dispatch)}
-          value={settings.distance}
+          value={settings.temperature}
           style={{ inputIOS: { color: colors.white }, inputAndroid: { color: colors.white } }}
           items={[
             { label: ITemperature.CELSIUS, value: ITemperature.CELSIUS },
