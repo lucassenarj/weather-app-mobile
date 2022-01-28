@@ -9,9 +9,9 @@ export function selectTemperature(temperature: string, dispatch: Dispatch<IDispa
   });
 };
 
-export function selectSpeed(speed: string, dispatch: Dispatch<IDispatch>) {
+export function selectDistance(distance: string, dispatch: Dispatch<IDispatch>) {
   return dispatch({
-    type: Actions.SELECT_SPEED,
-    payload: { speed }
+    type: Actions.SELECT_DISTANCE,
+    payload: { distance }
   });
 };

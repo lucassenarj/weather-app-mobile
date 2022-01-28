@@ -2,7 +2,7 @@ import React, { createContext, Dispatch, useReducer } from "react";
 import { settingsReducer } from "../reducers/settings";
 import IDispatch from "../types/dispatch";
 import ISettings from "../types/settings";
-import ISpeed from "../types/speed";
+import IDistance from "../types/distance";
 import ITemperature from "../types/temperature";
 
 type IContext = {
@@ -11,7 +11,7 @@ type IContext = {
 }
 
 const initialState = {
-  speed: ISpeed.KILOMETERS,
+  distance: IDistance.KILOMETERS,
   temperature: ITemperature.CELSIUS,
 };
 

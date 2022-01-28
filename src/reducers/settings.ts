@@ -13,11 +13,11 @@ export const settingsReducer: Reducer<ISettings, IDispatch> = (state, action): I
         temperature,
       }
     };
-    case Actions.SELECT_SPEED: {
-      const { speed } = payload;
+    case Actions.SELECT_DISTANCE: {
+      const { distance } = payload;
       return {
         ...state,
-        speed,
+        distance,
       }
     }
     default: {

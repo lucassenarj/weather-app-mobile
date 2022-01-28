@@ -1,5 +1,5 @@
 type ISettings = {
-  speed?: string,
+  distance?: string,
   temperature?: string,
 };
 

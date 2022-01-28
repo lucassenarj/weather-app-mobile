@@ -1,6 +1,6 @@
-const ISpeed = {
+const IDistance = {
   KILOMETERS: "KILOMETERS",
   MILES: "MILES",
 }
 
-export default ISpeed;
+export default IDistance;
