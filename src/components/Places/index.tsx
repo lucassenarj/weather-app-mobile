@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import SunnyIcon from "../../assets/images/forecast-icons/s.svg";
+import { LocationsContext } from "../../context/LocationsContext";
+import ILocation from "../../types/location";
 
 import {
   Section,
@@ -14,232 +16,27 @@ import {
 } from "./styles";
 
 function Places() {
+  const { locations } = useContext(LocationsContext);
   return (
     <Section>
-      <Place active={true}>
-        <Details>
-          <Info>
-            <Temp>32c</Temp>
-            <Weather active={true}>Cloudy</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>Califórnia</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>28c</Temp>
-            <Weather>Lightning</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>Paris</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>24c</Temp>
-            <Weather>Storm</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>London</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>33c</Temp>
-            <Weather>Bright</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>Milan</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>32c</Temp>
-            <Weather>Cloudy</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>Califórnia</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>28c</Temp>
-            <Weather>Lightning</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>Paris</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>24c</Temp>
-            <Weather>Storm</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>London</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>33c</Temp>
-            <Weather>Bright</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>Milan</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>32c</Temp>
-            <Weather>Cloudy</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>Califórnia</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>28c</Temp>
-            <Weather>Lightning</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>Paris</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>24c</Temp>
-            <Weather>Storm</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>London</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>33c</Temp>
-            <Weather>Bright</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>Milan</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>32c</Temp>
-            <Weather>Cloudy</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>Califórnia</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>28c</Temp>
-            <Weather>Lightning</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>Paris</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>24c</Temp>
-            <Weather>Storm</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>London</Title>
-        </Location>
-      </Place>
-      <Place>
-        <Details>
-          <Info>
-            <Temp>33c</Temp>
-            <Weather>Bright</Weather>
-          </Info>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Details>
-        <Location>
-          <Title>Milan</Title>
-        </Location>
-      </Place>
+      {
+        locations.map((place) => (
+          <Place>
+            <Details>
+              <Info>
+                <Temp>32c</Temp>
+                <Weather>Cloudy</Weather>
+              </Info>
+              <Icon>
+                <SunnyIcon />
+              </Icon>
+            </Details>
+            <Location>
+              <Title>{ place.title }</Title>
+            </Location>
+          </Place>
+        ))
+      }
     </Section>
   );
 };

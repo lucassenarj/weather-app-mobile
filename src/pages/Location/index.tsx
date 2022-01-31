@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import Header from "../../components/Header";
 import Places from "../../components/Places";
 import Search from "../../components/Search";
+import { LocationsProvider } from "../../context/LocationsContext";
 import { Layout, Main } from "../../styles/globals";
-
-const subtitle: string = "Find the area or city that you want to know the detailed weather info at this time";
 
 function Location() {
   return (
-    <Layout>
+    <LocationsProvider>
+      <Layout>
         <Header title="Pick location" />
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Main>
@@ -18,6 +18,7 @@ function Location() {
           </Main>
         </TouchableWithoutFeedback>
       </Layout>
+    </LocationsProvider>
   );
 };
 

@@ -20,7 +20,7 @@ export const Section = styled.View`
   justify-content: space-between;
 `;
 
-export const Place = styled.View`
+export const Place = styled.TouchableOpacity`
   width: 47%;
   padding: 30px 20px;
   margin-bottom: 20px;
