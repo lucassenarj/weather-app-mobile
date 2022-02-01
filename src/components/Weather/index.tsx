@@ -1,6 +1,8 @@
 import React from "react";
-import { Image } from "react-native";
-import SunnyIcon from "../../assets/images/forecast-icons/s.svg";
+import useDistance from "../../hooks/useDistance";
+import useTemperature from "../../hooks/useTemperature";
+import useWeatherIcon from "../../hooks/useWeatherIcon";
+import IWeather from "../../types/weather";
 
 import {
   Section,
@@ -11,24 +13,29 @@ import {
   Value
 } from "./styles";
 
-function Weather() {
+type Props = {
+  weather: IWeather;
+}
+
+function Weather({ weather }: Props) {
+  const { Icon } = useWeatherIcon(weather.weather_state_abbr, 260);
   return (
     <Section>
       <Thumbnail>
-        <SunnyIcon width={260} height={260} />
+        { Icon }
       </Thumbnail>
       <Details>
         <Info>
           <Span>Temp</Span>
-          <Value>32</Value>
+          <Value>{ useTemperature(weather.the_temp) }</Value>
         </Info>
         <Info>
           <Span>Wind</Span>
-          <Value>10km/h</Value>
+          <Value>{ useDistance(weather.wind_speed) }</Value>
         </Info>
         <Info>
           <Span>Humidity</Span>
-          <Value>75%</Value>
+          <Value>{ weather.humidity }%</Value>
         </Info>
       </Details>
     </Section>
