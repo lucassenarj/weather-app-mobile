@@ -4,7 +4,7 @@ type IWeather = {
   weather_state_abbr: string;
   wind_direction_compass: string;
   created: Date;
-  applicable_date: Date;
+  applicable_date: string;
   min_temp: number;
   max_temp: number;
   the_temp: number;

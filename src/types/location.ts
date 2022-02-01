@@ -5,7 +5,7 @@ import IWeather from "./weather";
 type ILocation = {
   consolidated_weather: IWeather[];
   woeid: number;
-  time: Date;
+  time: string;
   sun_rise: Date;
   sun_set: Date;
   timezone_name: string;
