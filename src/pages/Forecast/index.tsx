@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import { useNavigation } from "@react-navigation/native";
+import React, { useContext, useEffect } from "react";
 import Header from "../../components/Header";
 import Today from "../../components/Today";
 import Weather from "../../components/Weather";
@@ -7,7 +8,16 @@ import { Layout, Main } from "../../styles/globals";
 
 function Forecast() {
   const { place } = useContext(PlaceContext);
-  return (
+  const navigation = useNavigation();
+
+  if (!place.woeid) {
+    navigation.reset({
+      index: 0,
+      routes: [ { name: "Location" } ]
+    });
+  }
+
+  return place.woeid ? (
     <Layout>
       <Header title={place.title} />
       <Main>
@@ -15,7 +25,7 @@ function Forecast() {
         <Today />
       </Main>
     </Layout>
-  );
+  ) : null;
 };
 
 export default Forecast;

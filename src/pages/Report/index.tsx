@@ -1,13 +1,23 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useContext } from "react";
 import Header from "../../components/Header";
 import Next from "../../components/Next";
 import Today from "../../components/Today";
-import { PlaceContext, PlaceProvider } from "../../context/PlaceContext";
+import { PlaceContext } from "../../context/PlaceContext";
 import { Layout, Main } from "../../styles/globals";
 
 function Report() {
   const { place } = useContext(PlaceContext);
-  return (
+  const navigation = useNavigation();
+
+  if (!place.woeid) {
+    navigation.reset({
+      index: 0,
+      routes: [ { name: "Location" } ]
+    });
+  }
+
+  return place.woeid ? (
     <Layout>
       <Header title="Forecast Report" />
       <Main>
@@ -15,7 +25,7 @@ function Report() {
         <Next forecasts={place.consolidated_weather} />
       </Main>
     </Layout>
-  );
+  ): null;
 };
 
 export default Report;
