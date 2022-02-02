@@ -48,7 +48,7 @@ export const Weather = styled.Text`
   color: ${props => props.active ? colors.white : colors.gray};
 `;
 
-export const Icon = styled.View`
+export const Thumbnail = styled.View`
   width: 50px;
   height: 50px;
 `;
@@ -62,3 +62,11 @@ export const Title = styled.Text`
   font-size: 20px;
 `;
 
+export const NoPlace = styled.View`
+  width: 100%;
+`;
+
+export const Message = styled.Text`
+  color: ${colors.gray};
+  font-size: 16px;
+`;

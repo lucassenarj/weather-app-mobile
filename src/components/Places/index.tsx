@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
-import SunnyIcon from "../../assets/images/forecast-icons/s.svg";
-import { LocationsContext } from "../../context/LocationsContext";
+import { selectPlace } from "../../actions/place";
+import { PlaceContext } from "../../context/PlaceContext";
+import useTemperature from "../../hooks/useTemperature";
+import useWeatherIcon from "../../hooks/useWeatherIcon";
 import ILocation from "../../types/location";
 
 import {
@@ -10,32 +12,50 @@ import {
   Info,
   Temp,
   Weather,
-  Icon,
+  Thumbnail,
   Location,
   Title,
+  NoPlace,
+  Message,
 } from "./styles";
 
-function Places() {
-  const { locations } = useContext(LocationsContext);
+type Props = {
+  locations: ILocation[];
+  place?: ILocation;
+};
+
+function Places({ locations, place }: Props) {
+  const { dispatch: huehue } = useContext(PlaceContext);
   return (
     <Section>
       {
-        locations.map((place) => (
-          <Place>
-            <Details>
-              <Info>
-                <Temp>32c</Temp>
-                <Weather>Cloudy</Weather>
-              </Info>
-              <Icon>
-                <SunnyIcon />
-              </Icon>
-            </Details>
-            <Location>
-              <Title>{ place.title }</Title>
-            </Location>
-          </Place>
-        ))
+        locations.length >= 1 ? locations.map((location) => {
+          const { Icon, description } = useWeatherIcon(location.consolidated_weather[0].weather_state_abbr, 50);
+          const isActive = location.woeid === place.woeid;
+          return (
+            <Place
+              key={location.woeid}
+              active={isActive}
+              onPress={() => selectPlace(location, huehue)}
+            >
+              <Details>
+                <Info>
+                  <Temp>{ useTemperature(location.consolidated_weather[0].the_temp) }</Temp>
+                  <Weather active={isActive}>{ description }</Weather>
+                </Info>
+                <Thumbnail>
+                  { Icon }
+                </Thumbnail>
+              </Details>
+              <Location>
+                <Title>{ location.title }</Title>
+              </Location>
+            </Place>
+        )}) : (
+          <NoPlace>
+            <Message>Find the area or city that you want to know the detailed weather info at this time</Message>
+          </NoPlace>
+        )
       }
     </Section>
   );
