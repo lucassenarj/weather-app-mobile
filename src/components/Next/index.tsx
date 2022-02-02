@@ -1,6 +1,10 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import SunnyIcon from "../../assets/images/forecast-icons/s.svg";
+import useFormattedDate from "../../hooks/useFormattedDate";
+import useTemperature from "../../hooks/useTemperature";
+import useWeatherIcon from "../../hooks/useWeatherIcon";
 import colors from "../../styles/colors";
+import IWeather from "../../types/weather";
 import {
   Section,
   Info,
@@ -16,7 +20,11 @@ import {
   Icon
 } from "./styles";
 
-function Next() {
+type Props = {
+  forecasts: IWeather[];
+}
+
+function Next({ forecasts }: Props) {
   return (
     <Section>
       <Info>
@@ -30,66 +38,26 @@ function Next() {
         </Link>
       </Info>
       <Forecasts>
-        <Forecast>
-          <Date>
-            <Week>Thursday</Week>
-            <Day>May, 27</Day>
-          </Date>
-          <Temperature>
-            <Temp>32c</Temp>
-          </Temperature>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Forecast>
-        <Forecast>
-          <Date>
-            <Week>Friday</Week>
-            <Day>May, 28</Day>
-          </Date>
-          <Temperature>
-            <Temp>32c</Temp>
-          </Temperature>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Forecast>
-        <Forecast>
-          <Date>
-            <Week>Saturday</Week>
-            <Day>May, 29</Day>
-          </Date>
-          <Temperature>
-            <Temp>32c</Temp>
-          </Temperature>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Forecast>
-        <Forecast>
-          <Date>
-            <Week>Sunday</Week>
-            <Day>May, 30</Day>
-          </Date>
-          <Temperature>
-            <Temp>32c</Temp>
-          </Temperature>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Forecast>
-        <Forecast>
-          <Date>
-            <Week>Monday</Week>
-            <Day>May, 31</Day>
-          </Date>
-          <Temperature>
-            <Temp>32c</Temp>
-          </Temperature>
-          <Icon>
-            <SunnyIcon />
-          </Icon>
-        </Forecast>
+        {
+          forecasts && forecasts.map((forecast) => {
+            const { fullDay, formatted } = useFormattedDate(forecast.applicable_date);
+            const { Icon: Thumbnail } = useWeatherIcon(forecast.weather_state_abbr, 60);
+            return (
+              <Forecast key={forecast.id}>
+                <Date>
+                  <Week>{ fullDay }</Week>
+                  <Day>{ formatted }</Day>
+                </Date>
+                <Temperature>
+                  <Temp>{ useTemperature(forecast.the_temp) }</Temp>
+                </Temperature>
+                <Icon>
+                  { Thumbnail }
+                </Icon>
+              </Forecast>
+            )
+          })
+        }
       </Forecasts>
     </Section>
   );

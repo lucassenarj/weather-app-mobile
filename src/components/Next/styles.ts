@@ -5,6 +5,7 @@ export const Section = styled.View`
   flex: 1;
   width: 100%;
   padding: 20px;
+  margin-bottom: 80px;
 `;
 
 export const Info = styled.View`
@@ -37,7 +38,6 @@ export const Forecast = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-right: 30px;
   border-radius: 20px;
   padding: 10px 25px;
   margin-top: 20px;
@@ -46,7 +46,7 @@ export const Forecast = styled.View`
 `;
 
 export const Date = styled.View`
-  width: 100px;
+  width: 140px;
 `;
 
 export const Week = styled.Text`
@@ -61,11 +61,13 @@ export const Day = styled.Text`
 
 export const Temperature = styled.View`
   width: 80px;
+  margin-right: 30px;
 `;
 
 export const Temp = styled.Text`
   font-size: 32px;
   color: ${colors.white};
+  text-align: center;
 `;
 
 export const Icon = styled.View`
