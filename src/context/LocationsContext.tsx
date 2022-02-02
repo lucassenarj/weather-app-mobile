@@ -4,16 +4,16 @@ import ILocation from "../types/location";
 import locationsReducer from "../reducers/locations";
 import london from "../utils/london";
 import san_francisco from "../utils/san_francisco";
+import useAsyncStore from "../hooks/useAsyncStore";
 
 type IContext = {
   locations: ILocation[],
   dispatch: Dispatch<IDispatch>;
 }
 
-const initialState = [
-  london,
-  san_francisco
-];
+let initialState = [];
+
+useAsyncStore().then(({ locations }) => initialState = locations);
 
 export const LocationsContext = createContext({} as IContext);
 
