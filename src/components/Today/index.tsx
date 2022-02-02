@@ -1,5 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
+import { useContext } from "react";
 import SunnyIcon from "../../assets/images/forecast-icons/s.svg";
+import { PlaceContext } from "../../context/PlaceContext";
+import useFormattedDate from "../../hooks/useFormattedDate";
 import {
   Section,
   Info,
@@ -15,11 +18,13 @@ import {
 
 function Today() {
   const navigator = useNavigation();
+  const { place } = useContext(PlaceContext);
+  const { fullDay, formatted } = useFormattedDate(place.time);
   return (
     <Section>
       <Info>
-        <Title>Today</Title>
-        <Link>May 28, 2021</Link>
+        <Title>{ fullDay }</Title>
+        <Link>{ formatted }</Link>
       </Info>
       <Cards> 
         <Card active={true}>
