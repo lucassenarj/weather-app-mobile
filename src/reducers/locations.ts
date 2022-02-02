@@ -1,5 +1,6 @@
 import Actions from "../types/actions";
-
+import IStorage from "../types/storage";
+import setItemOnStorage from "../utils/setItemOnStorage";
 
 const locationsReducer = (state, action) => {
   const { type, payload } = action;
@@ -7,6 +8,7 @@ const locationsReducer = (state, action) => {
     case Actions.ADD_LOCATION: {
       const { location } = payload;
       const locations = [...state, location];
+      setItemOnStorage(IStorage.LOCATIONS, locations);
       return locations;
     }
     case Actions.REMOVE_LOCATION: {
