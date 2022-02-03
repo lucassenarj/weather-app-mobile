@@ -2,6 +2,8 @@ import IDistance from "../types/distance";
 import IStorage from "../types/storage";
 import ITemperature from "../types/temperature";
 import getItemFromStorage from "../utils/getItemFromStorage";
+import london from "../utils/london";
+import san_francisco from "../utils/san_francisco";
 
 async function useAsyncStore() {
   let settings = await getItemFromStorage(IStorage.SETTINGS);
@@ -15,8 +17,8 @@ async function useAsyncStore() {
     };
   };
 
-  if(!locations) {
-    locations = [];
+  if(locations.length === 0) {
+    locations = [london, san_francisco];
   };
 
   if(!place) {
