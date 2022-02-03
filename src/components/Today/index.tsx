@@ -3,6 +3,7 @@ import { useContext } from "react";
 import SunnyIcon from "../../assets/images/forecast-icons/s.svg";
 import { PlaceContext } from "../../context/PlaceContext";
 import useFormattedDate from "../../hooks/useFormattedDate";
+import ILocation from "../../types/location";
 import {
   Section,
   Info,
@@ -16,9 +17,12 @@ import {
   Value
 } from "./styles";
 
-function Today() {
+type Props = {
+  place: ILocation;
+}
+
+function Today({ place }: Props) {
   const navigator = useNavigation();
-  const { place } = useContext(PlaceContext);
   const { fullDay, formatted } = useFormattedDate(place.time);
   return (
     <Section>

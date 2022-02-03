@@ -25,18 +25,18 @@ type Props = {
 };
 
 function Places({ locations, place }: Props) {
-  const { dispatch: huehue } = useContext(PlaceContext);
+  const { dispatch: placeDispatch } = useContext(PlaceContext);
   return (
     <Section>
       {
         locations.length >= 1 ? locations.map((location) => {
           const { Icon, description } = useWeatherIcon(location.consolidated_weather[0].weather_state_abbr, 50);
-          const isActive = location.woeid === place.woeid;
+          const isActive = place && location.woeid === place.woeid;
           return (
             <Place
               key={location.woeid}
               active={isActive}
-              onPress={() => selectPlace(location, huehue)}
+              onPress={() => selectPlace(location, placeDispatch)}
             >
               <Details>
                 <Info>
