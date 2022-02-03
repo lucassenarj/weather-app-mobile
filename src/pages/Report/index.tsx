@@ -1,28 +1,37 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Next from "../../components/Next";
 import Today from "../../components/Today";
 import { PlaceContext } from "../../context/PlaceContext";
+import useAsyncStore from "../../hooks/useAsyncStore";
 import { Layout, Main } from "../../styles/globals";
 
 function Report() {
-  const { place } = useContext(PlaceContext);
   const navigation = useNavigation();
+  const { place } = useContext(PlaceContext);
 
-  if (!place.woeid) {
-    navigation.reset({
-      index: 0,
-      routes: [ { name: "Location" } ]
-    });
-  }
+  const [location, setLocation] = useState(async () => {
+    const { place } = await useAsyncStore();
+    if(!place.woeid) {
+      navigation.reset({
+        index: 0,
+        routes: [ { name: "Location" } ]
+      });
+    }
+    return setLocation(place);
+  });
 
-  return place.woeid ? (
+  useEffect(() => {
+    setLocation(place);
+  }, [place]);
+
+  return location.woeid ? (
     <Layout>
       <Header title="Forecast Report" />
       <Main>
-        <Today />
-        <Next forecasts={place.consolidated_weather} />
+        <Today place={location} />
+        <Next forecasts={location.consolidated_weather} />
       </Main>
     </Layout>
   ): null;
