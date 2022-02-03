@@ -1,26 +1,40 @@
-import React, { createContext, Dispatch, useReducer } from "react";
+import React, { createContext, Dispatch, useEffect, useReducer, useState } from "react";
 import IDispatch from "../types/dispatch";
 import ILocation from "../types/location";
-import london from "../utils/london";
 import placeReducer from "../reducers/place";
 import useAsyncStore from "../hooks/useAsyncStore";
+import api from "../services/api";
 
 type IContext = {
-  place: ILocation,
+  place: ILocation | object,
   dispatch: Dispatch<IDispatch>;
 }
 
 export const PlaceContext = createContext({} as IContext);
 
-let initialState = {};
-
-useAsyncStore().then(({ place }) => initialState = place);
-
 export function PlaceProvider({ children }) {
-  const [place, dispatch] = useReducer(placeReducer, initialState);
+  const [location, setLocation] = useState({});
+
+  useEffect(() => {
+    (async () => {
+      const { place } = await useAsyncStore();
+      if (place) {
+        const { status, response } = await api.getWeatherInfo(place.woeid);
+        if (status) {
+          setLocation(response);
+        }
+      }
+    })();
+  }, []);
+
+  const [place, dispatch] = useReducer(placeReducer, location);
+
+  useEffect(() => {
+    setLocation(place);
+  }, [place]);
 
   return (
-    <PlaceContext.Provider value={{ place, dispatch }}>
+    <PlaceContext.Provider value={{ place: location, dispatch }}>
       {children}
     </PlaceContext.Provider>
   );
