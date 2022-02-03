@@ -14,6 +14,7 @@ const locationsReducer = (state, action) => {
     case Actions.REMOVE_LOCATION: {
       const { woeid } = payload;
       const locations = state.filter((item) => item.woeid !== woeid);
+      setItemOnStorage(IStorage.LOCATIONS, locations);
       return locations;
     }
     default: {
