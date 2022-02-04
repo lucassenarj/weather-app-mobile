@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { Dispatch, useContext } from "react";
 import { selectPlace } from "../../actions/place";
 import { PlaceContext } from "../../context/PlaceContext";
 import useTemperature from "../../hooks/useTemperature";
 import useWeatherIcon from "../../hooks/useWeatherIcon";
+import IDispatch from "../../types/dispatch";
 import ILocation from "../../types/location";
 
 import {
@@ -22,25 +23,30 @@ import {
 type Props = {
   locations: ILocation[];
   place?: ILocation;
+  placeDispatch: Dispatch<IDispatch>;
 };
 
-function Places({ locations, place }: Props) {
-  const { dispatch: placeDispatch } = useContext(PlaceContext);
+function Places({ locations, place, placeDispatch }: Props) {
+  function handleSelectPlace(location: ILocation) {
+    selectPlace(location, placeDispatch);
+  }
+
   return (
     <Section>
       {
         locations.length >= 1 ? locations.map((location) => {
           const { Icon, description } = useWeatherIcon(location.consolidated_weather[0].weather_state_abbr, 50);
-          const isActive = place && location.woeid === place.woeid;
+          const isActive = place ? place.woeid === location.woeid : false;
+          const temperature = useTemperature(location.consolidated_weather[0].the_temp);
           return (
             <Place
               key={location.woeid}
               active={isActive}
-              onPress={() => selectPlace(location, placeDispatch)}
+              onPress={() => handleSelectPlace(location)}
             >
               <Details>
                 <Info>
-                  <Temp>{ useTemperature(location.consolidated_weather[0].the_temp) }</Temp>
+                  <Temp>{ temperature }</Temp>
                   <Weather active={isActive}>{ description }</Weather>
                 </Info>
                 <Thumbnail>

@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Today from "../../components/Today";
@@ -8,17 +7,10 @@ import useAsyncStore from "../../hooks/useAsyncStore";
 import { Layout, Main } from "../../styles/globals";
 
 function Forecast() {
-  const navigation = useNavigation();
   const { place } = useContext(PlaceContext);
 
   const [location, setLocation] = useState(async () => {
     const { place } = await useAsyncStore();
-    if(!place.woeid) {
-      navigation.reset({
-        index: 0,
-        routes: [ { name: "Location" } ]
-      });
-    }
     return setLocation(place);
   });
 
@@ -29,7 +21,7 @@ function Forecast() {
   return (
     <Layout>
       {
-        location.woeid && (
+        location.woeid ? (
           <>
           <Header title={location.title} />
           <Main>
@@ -37,7 +29,7 @@ function Forecast() {
             <Today place={location} />
           </Main>
           </>
-        )
+        ) : <Header title="No place selected" />
       }
     </Layout>
   );

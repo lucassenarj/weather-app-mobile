@@ -26,15 +26,19 @@ function Report() {
     setLocation(place);
   }, [place]);
 
-  return location.woeid ? (
+  return (
     <Layout>
       <Header title="Forecast Report" />
-      <Main>
-        <Today place={location} />
-        <Next forecasts={location.consolidated_weather} />
-      </Main>
+      {
+        location.woeid ? (
+          <Main>
+            <Today place={location} />
+            <Next forecasts={location.consolidated_weather} />
+          </Main>
+        ) : (<></>)
+      }
     </Layout>
-  ): null;
+  )
 };
 
 export default Report;

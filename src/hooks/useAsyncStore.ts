@@ -17,7 +17,7 @@ async function useAsyncStore() {
     };
   };
 
-  if(locations.length === 0) {
+  if(!locations) {
     locations = [london, san_francisco];
   };
 
