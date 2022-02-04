@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useEffect, useState } from "react";
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import Header from "../../components/Header";
@@ -11,16 +10,12 @@ import { Layout, Main } from "../../styles/globals";
 
 function Location() {
   const { locations } = useContext(LocationsContext);
-  const navigation = useNavigation();
-  const { place } = useContext(PlaceContext);
+  const { place, dispatch: placeDispatch } = useContext(PlaceContext);
 
   const [location, setLocation] = useState(async () => {
     const { place } = await useAsyncStore();
     if(!place.woeid) {
-      navigation.reset({
-        index: 0,
-        routes: [ { name: "Location" } ]
-      });
+      return
     }
     return setLocation(place);
   });
@@ -35,7 +30,7 @@ function Location() {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Main>
           <Search />
-          <Places locations={locations} place={location} />
+          <Places locations={locations} place={location} placeDispatch={placeDispatch} />
         </Main>
       </TouchableWithoutFeedback>
     </Layout>
