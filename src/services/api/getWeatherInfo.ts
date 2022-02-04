@@ -9,7 +9,11 @@ async function getWeatherInfo(id: number): Promise<IResponse> {
       response: data,
     }
   } catch (error) {
-    return null
+    const { status } = error;
+    return {
+      status,
+      response: "Error while fetching weather info",
+    }
   };
 };
 
